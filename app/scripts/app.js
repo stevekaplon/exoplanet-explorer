@@ -1,3 +1,5 @@
+//import { error } from "util";
+
 /*
 Instructions:
 (1) Get the planet data and add the search header.
@@ -64,6 +66,21 @@ Instructions:
 
     Your code goes here!
      */
-    // getJSON('../data/earth-like-results.json')
+     getJSON('../data/earth-like-results.json')
+     .then(function(response){
+      addSearchHeader(response.query);
+      return getJSON(response.results[0]);
+     })
+     .catch(function(error){
+      throw Error('search request error')
+     })
+     .then(function(response){
+      createPlanetThumb(response);
+     })
+     .catch(function(error){
+      addSearchHeader('unknown');
+      console.log('unknown');
+     })
+;
   });
 })(document);
